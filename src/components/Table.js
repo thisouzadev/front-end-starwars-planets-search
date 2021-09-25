@@ -3,16 +3,39 @@ import starWarsContext from '../context/starWarsContext';
 import Input from './Input';
 
 export default function Table() {
-  const { data,
-    filterInput: { filters: { filterByName: { name } } } } = useContext(starWarsContext);
-  const filterPlanetName = () => data.filter((planet) => planet
-    .name.toLowerCase().includes(name.toLowerCase()));
+  const { data, filters, setData } = useContext(starWarsContext);
+  const { column, value, comparison } = filters.filterByNumericValues[0];
+  function handleclick() {
+    setData(data.filter((el) => {
+      switch (comparison) {
+      case 'maior que':
+        console.log(el[column]);
+        return parseInt(el[column], 10) > parseInt(value, 10);
+      case 'menor que':
+        return parseInt(el[column], 10) < parseInt(value, 10);
+      case 'igual a':
+        return parseInt(el[column], 10) === parseInt(value, 10);
+      default:
+        return data;
+      }
+    }));
+  }
 
+  const filterPlanetName = () => data.filter((el) => (
+    el.name.toLowerCase().includes(filters.filterByName.name.toLowerCase())
+  ));
   data.forEach((planet) => delete planet.residents);
   if (data.length > 0) {
     return (
       <div>
         <Input />
+        <button
+          onClick={ handleclick }
+          data-testid="button-filter"
+          type="button"
+        >
+          filtrar
+        </button>
         <table>
           <thead>
             <tr>

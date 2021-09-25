@@ -4,13 +4,16 @@ import starWarsContext from './starWarsContext';
 
 function Provider({ children }) {
   const [data, setData] = useState([]);
-  console.log(data);
-  const [filterInput, setfilterInput] = useState({
-    filters: {
-      filterByName: {
-        name: '',
-      },
+  const [filters, setFilters] = useState({
+    filterByName: {
+      name: '',
     },
+    filterByNumericValues: [
+      { column: '',
+        comparison: '',
+        value: 0,
+      },
+    ],
   });
 
   async function getStarWarsAPIData() {
@@ -20,11 +23,11 @@ function Provider({ children }) {
   }
 
   function handleChange(string) {
-    setfilterInput({ filters: {
+    setFilters({
+      ...filters,
       filterByName: {
         name: string,
       },
-    },
     });
   }
 
@@ -33,7 +36,9 @@ function Provider({ children }) {
   }, []);
 
   const obj = {
-    filterInput,
+    setData,
+    setFilters,
+    filters,
     data,
     handleChange,
   };
