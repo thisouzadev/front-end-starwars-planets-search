@@ -3,23 +3,7 @@ import starWarsContext from '../context/starWarsContext';
 import Input from './Input';
 
 export default function Table() {
-  const { data, filters, setData } = useContext(starWarsContext);
-  const { column, value, comparison } = filters.filterByNumericValues[0];
-  function handleclick() {
-    setData(data.filter((el) => {
-      switch (comparison) {
-      case 'maior que':
-        console.log(el[column]);
-        return parseInt(el[column], 10) > parseInt(value, 10);
-      case 'menor que':
-        return parseInt(el[column], 10) < parseInt(value, 10);
-      case 'igual a':
-        return parseInt(el[column], 10) === parseInt(value, 10);
-      default:
-        return data;
-      }
-    }));
-  }
+  const { data, filters } = useContext(starWarsContext);
 
   const filterPlanetName = () => data.filter((el) => (
     el.name.toLowerCase().includes(filters.filterByName.name.toLowerCase())
@@ -29,13 +13,6 @@ export default function Table() {
     return (
       <div>
         <Input />
-        <button
-          onClick={ handleclick }
-          data-testid="button-filter"
-          type="button"
-        >
-          filtrar
-        </button>
         <table>
           <thead>
             <tr>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './Button';
 import Columm from './Column';
 import Comparasion from './Comparasion';
 import Value from './Value';
@@ -9,6 +10,7 @@ export default function Header() {
       <Columm />
       <Comparasion />
       <Value />
+      <Button />
     </>
   );
 }
