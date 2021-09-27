@@ -8,6 +8,7 @@ export default function Table() {
   const filterPlanetName = () => data.filter((el) => (
     el.name.toLowerCase().includes(filters.filterByName.name.toLowerCase())
   ));
+
   data.forEach((planet) => delete planet.residents);
   if (data.length > 0) {
     return (

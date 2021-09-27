@@ -10,17 +10,36 @@ export default function Columm() {
     filterByNumericValues: [{ ...filterByNumericValues[0], column: value }],
   });
 
+  const removeUsedOptions = () => {
+    const options = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    return options.map((option) => {
+      if (filterByNumericValues[0].column !== option) {
+        return (
+          <option
+            key={ option }
+            value={ option }
+          >
+            { option }
+          </option>
+        );
+      }
+      return null;
+    });
+  };
+
   return (
     <select
       data-testid="column-filter"
       onChange={ (event) => handleSelect(event.target.value) }
       name="columm"
     >
-      <option value="population">population</option>
-      <option value="orbital_period">orbital_period</option>
-      <option value="diameter">diameter</option>
-      <option value="rotation_period">rotation_period</option>
-      <option value="surface_water">surface_water</option>
+      { removeUsedOptions() }
     </select>
   );
 }

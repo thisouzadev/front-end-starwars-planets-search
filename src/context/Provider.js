@@ -14,6 +14,7 @@ function Provider({ children }) {
         value: 0,
       },
     ],
+    order: { column: 'Name', sort: 'ASC' },
   });
 
   async function getStarWarsAPIData() {
