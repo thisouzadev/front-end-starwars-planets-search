@@ -2,19 +2,29 @@ import React, { useContext } from 'react';
 import starWarsContext from '../context/starWarsContext';
 
 export default function Button() {
-  const { filters, setData, data } = useContext(starWarsContext);
+  const { filters, setData, setColumnArray, planet } = useContext(starWarsContext);
   const { column, value, comparison } = filters.filterByNumericValues[0];
+
+  const array = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water'];
+
   function handleClick() {
-    setData(data.filter((el) => {
+    setColumnArray(array.filter((el) => column !== el));
+    setData(planet.filter((el) => {
       switch (comparison) {
       case 'maior que':
-        return parseInt(el[column], 10) > parseInt(value, 10);
+        return Number(el[column]) > Number(value);
       case 'menor que':
-        return parseInt(el[column], 10) < parseInt(value, 10);
+        return Number(el[column]) < Number(value);
       case 'igual a':
-        return parseInt(el[column], 10) === parseInt(value, 10);
+        console.log('dentro switch');
+        return Number(el[column]) === Number(value);
       default:
-        return data;
+        return planet;
       }
     }));
   }

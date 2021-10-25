@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import starWarsContext from '../context/starWarsContext';
 
 export default function Columm() {
-  const { filters, setFilters } = useContext(starWarsContext);
+  const { filters, setFilters, columnArray } = useContext(starWarsContext);
   const { filterByNumericValues } = filters;
 
   const handleSelect = (value) => setFilters({
@@ -10,28 +10,14 @@ export default function Columm() {
     filterByNumericValues: [{ ...filterByNumericValues[0], column: value }],
   });
 
-  const removeUsedOptions = () => {
-    const options = [
-      'population',
-      'orbital_period',
-      'diameter',
-      'rotation_period',
-      'surface_water',
-    ];
-    return options.map((option) => {
-      if (filterByNumericValues[0].column !== option) {
-        return (
-          <option
-            key={ option }
-            value={ option }
-          >
-            { option }
-          </option>
-        );
-      }
-      return null;
-    });
-  };
+  const removeUsedOptions = () => columnArray.map((option) => (
+    <option
+      key={ option }
+      value={ option }
+    >
+      { option }
+    </option>
+  ));
 
   return (
     <select
